@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="./gender.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header__info">
+          <img class="header__logo" src="./Group 1.png" alt="" />
+        </div>
+      </header>
+      <h1 class="title">Определение гендера по имени</h1>
+      <div id="input__container" class="input__container">
+        <input id="input" class="input" type="text" placeholder="Имя">
+      </div>
+      <div class="random__btn">
+        <button class="btn" id="btn">Сохронить</button>
+      </div>
+      <div class="main__result">
+        <h3 class="result-name"></h3>
+        <h3 class="result-gender"></h3>
+        <h3 class="result-probability"></h3>
+      </div>
+      <script>
+        let gender = async () => {
+            let name = document.getElementById('input').value;
+            const result = await fetch (`https://api.genderize.io?name=${name}`);
+            if (result.ok) {
+            const data = await result.json();
+            const resultName = document.querySelector('.result-name');
+            const resultGender = document.querySelector('.result-gender');
+            const resultProbability = document.querySelector('.result-probability');
+            resultName.textContent = `Имя: ${data.name}`;
+            resultGender.textContent = `Гендер: ${data.gender}`;
+            resultProbability.textContent = `Вероятность: ${data.probability}`
+            document.getElementById ('input').value = '';
+
+            }
+        }
+        const btn = document.querySelector('.btn');
+        btn.addEventListener('click', gender)
+        
+    
+      </script>
+</body>
+</html>

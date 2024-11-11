@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="./Fech.css">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./Fech.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__info">
+        <img class="header__logo" src="./Group 1.png" alt="" />
+      </div>
+    </header>
+    <h1 class="title">Случайная кортинка собаки</h1>
+    <div class="random">
+      <div class="random__dog">
+        <img src="" alt="">
+      </div>
+    </div>
+    <div class="random__btn">
+      <button class="btn" id="btn">Далее</button>
+    </div>
+    <script>
+      const getRandomDog = async () => {
+        const response = await fetch("https://dog.ceo/api/breeds/image/random");
+        if (response.ok) {
+          const dataJSon = await response.json();
+          console.log(dataJSon);
+
+          const img = document.querySelector(".random__dog img");
+          img.src = dataJSon.message;
+        }
+      };
+      const btn = document.getElementById("btn");
+      btn.addEventListener("click", getRandomDog);
+    </script>
+  </body>
+</html>

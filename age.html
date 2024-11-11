@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="./age.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header__info">
+          <img class="header__logo" src="./Group 1.png" alt="" />
+        </div>
+      </header>
+      <h1 class="title">Определение возраста по имени</h1>
+      <div id="input__container" class="input__container">
+        <input id="input" class="input" type="text" placeholder="Имя">
+      </div>
+      <div class="random__btn">
+        <button class="btn" id="btn">Сохронить</button>
+      </div>
+      <div class="main__resolt">
+        <h3 class="resolt-name"></h3>
+        <h3 class="resolt-age"></h3>
+      </div>
+      <script>
+        let Age = async () => {
+            const name = document.getElementById('input').value;
+            const response = await fetch(`https://api.agify.io?name=${name}`);
+            if(response.ok){
+            const data = await response.json();
+            const resoltName = document.querySelector('.resolt-name');
+            const resoltAge = document.querySelector('.resolt-age');
+            
+            resoltName.textContent = `Имя: ${data.name}`;
+            resoltAge.textContent = `Средний возраст: ${data.age}`;
+            document.getElementById ('input').value = '';
+
+            }
+        }
+        const btn = document.querySelector('.btn');
+        btn.addEventListener('click', Age)
+      </script>
+</body>
+</html>

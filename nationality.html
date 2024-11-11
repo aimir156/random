@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="./nationality.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header__info">
+          <img class="header__logo" src="./Group 1.png" alt="" />
+        </div>
+      </header>
+      <h1 class="title">Определение национальности по имени</h1>
+      <div id="input__container" class="input__container">
+        <input id="input" class="input" type="text" placeholder="Имя">
+      </div>
+      <div class="random__btn">
+        <button class="btn" id="btn">Сохронить</button>
+      </div>
+      <div class="main__result">
+      </div>
+      <script>
+        let nationality = async () => {
+        let name = document.getElementById('input').value;
+        const result = await fetch(`https://api.nationalize.io?name=${name}`);
+    
+            if (result.ok) {
+            const data = await result.json();
+            const nationality = data.country[0];
+
+            document.querySelector('.main__result').innerHTML = `
+            <p>Имя: ${name}</p>
+            <p>Национальность: ${nationality.country_id}</p>
+            <p>Вероятность: ${(nationality.probability * 100).toFixed(2)}%</p>`;
+    }
+}
+
+const btn = document.querySelector('.btn');
+btn.addEventListener('click', nationality);
+      </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="./randomUser.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header__info">
+          <img class="header__logo" src="./Group 1.png" alt="" />
+        </div>
+      </header>
+      <h1 class="title">Случайный пользователь</h1>
+      <div class=""></div>
+      <div class="random__btn">
+        <button class="btn" id="btn">Далее</button>
+      </div>
+      <div class="user__info">
+        <div class="user"></div>
+        <div class="location"></div>
+      </div>
+      <script>
+        const user = async () => {
+            let result = await fetch('https://randomuser.me/api/');
+            if(result.ok){
+                let dataJson = await result.json();
+                    const user = dataJson.results[0];
+                    document.querySelector('.user__info').innerHTML =`
+                    <div class="user">
+                    <p>Имя: ${user.name.first} ${user.name.last}</p>
+                    <p>Гендер: ${user.gender}</p>
+                    <p>Почта: ${user.email}</p>
+                    <p>Телефон: ${user.phone}</p>
+                    <p>Национальность: ${user.nat}</p>
+                    </div>
+                    <div class="location">
+                    <p>Адрес:</p>
+                    <p>Город: ${user.location.city}</p>
+                    <p>Штат/Область: ${user.location.state}</p>
+                    <p>Страна: ${user.location.country}</p>
+                    <p> Фото:</p>
+                    <img src="${user.picture.large}" alt="Фото пользователя">
+                    </div>
+                    `;
+            }
+        }    
+        const btn = document.querySelector('.btn').addEventListener('click', user);
+      </script>
+</body>
+</html>
